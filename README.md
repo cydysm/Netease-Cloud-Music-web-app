@@ -1,5 +1,5 @@
 # mysite
-# author IrrElephant
+### author IrrElephant
 ## Project setup
 ```
 npm install
