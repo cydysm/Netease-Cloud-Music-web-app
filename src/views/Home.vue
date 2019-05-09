@@ -20,9 +20,9 @@ export default {
   mounted() {
     this.axios({
       method: 'get',
-      url: '/amap',
+      url: '/ap1/amap',
     }).then((res) => {
-      this.rspContent = res;
+      this.rspContent = res.data.province;
     });
   },
   components: {
