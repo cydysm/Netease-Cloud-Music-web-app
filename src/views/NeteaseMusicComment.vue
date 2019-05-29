@@ -8,15 +8,24 @@ export default {
   name: 'neteaseMusicComment',
   data() {
     return {
-      randomCommentUrl: 'http://meaningless.cn/ap1/netease_music/song_random_comment',
-      devRandomCommentUrl: 'http://127.0.0.1:5000/netease_music/song_random_comment',
+      apiRandomID: 'http://meaningless.cn/ap1/netease_music/random_id',
+      sunnyDayID: '',
       content: {},
     };
   },
   created() {
-    this.fetchData();
+    // this.fetchData();
+    this.getRandomID().then((resp) => {
+      console.log(resp);
+    });
   },
   methods: {
+    getRandomID() {
+      return this.axios({
+        method: 'GET',
+        url: this.apiRandomID,
+      });
+    },
     fetchData() {
       this.axios({
         method: 'GET',
