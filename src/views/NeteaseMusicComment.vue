@@ -1,6 +1,6 @@
 <template>
   <div class="netease-music-comment">
-    <button @click="fetchData">test</button>
+    <button @click="getRandomID">test</button>
   </div>
 </template>
 <script>
@@ -8,7 +8,7 @@ export default {
   name: 'neteaseMusicComment',
   data() {
     return {
-      apiRandomID: 'http://meaningless.cn/ap1/netease_music/random_id',
+      apiRandomID: '/api/album/18905',
       sunnyDayID: '',
       content: {},
     };
@@ -24,6 +24,7 @@ export default {
       return this.axios({
         method: 'GET',
         url: this.apiRandomID,
+        withCredentials: true,
       });
     },
     fetchData() {

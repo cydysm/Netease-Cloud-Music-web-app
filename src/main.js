@@ -6,7 +6,13 @@ import store from './store';
 import './registerServiceWorker';
 
 Vue.config.productionTip = false;
-Vue.prototype.axios = axios;
+const corsAxios = axios.create({
+  headers: {
+    'Access-Control-Allow-Methods': 'GET,POST',
+    // 'Referer': 'https://music.163.com/',
+  },
+});
+Vue.prototype.axios = corsAxios;
 new Vue({
   router,
   store,
