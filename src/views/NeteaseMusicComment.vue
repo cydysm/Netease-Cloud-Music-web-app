@@ -27,6 +27,11 @@ export default {
         withCredentials: true,
       });
     },
+    getDailyComment() {
+      return this.axios({
+        method: '',
+      });
+    },
     fetchData() {
       this.axios({
         method: 'GET',
