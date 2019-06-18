@@ -2,6 +2,7 @@
 You can run this project on PC side web browser.
 But you should disable-web-security on your browser to allow CORS,
 then you should logined "music.163.com" on your browser to ensure cookies["MUSIC_U"] exist.
+Screenshots: /screenshots
 # NOTE: Don't send so much http request per minute, it will make your IP be denied to "music.163.com"
 ### author IrrElephant
 ## Project setup
