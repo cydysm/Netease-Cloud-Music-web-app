@@ -1,6 +1,7 @@
 <template>
   <div class="netease-music-comment">
-    <button @click="getRandomID">test</button>
+    <!-- <button @click="getRandomID">test</button> -->
+    <md-button @click.native="getRandomID">test</md-button>
   </div>
 </template>
 <script>
@@ -14,7 +15,6 @@ export default {
     };
   },
   created() {
-    // this.fetchData();
     this.getRandomID().then((resp) => {
       console.log(resp);
     });

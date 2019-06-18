@@ -1,22 +1,37 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+// import NeteaseMusicComment from './views/NeteaseMusicComment.vue';
 // import Home from './views/Home.vue';
-import NeteaseMusicComment from './views/NeteaseMusicComment.vue';
+import RecommandPlaylist from './views/RecommendPlaylist.vue';
+import PlaylistDetail from './views/PlaylistDetail.vue';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: Home
-    // },
     {
       path: '/',
-      name: 'neteaseMusicComment',
-      component: NeteaseMusicComment,
+      name: 'recommandPlaylist',
+      component: RecommandPlaylist,
+      meta: {
+        title: '推荐歌单',
+        keepAlive: true,
+      },
+      // component: NeteaseMusicComment,
     },
+    {
+      path: '/playlist_detail',
+      name: 'playlistDetail',
+      component: PlaylistDetail,
+      meta: {
+        title: '歌单详情',
+      },
+    },
+    // {
+    //   path: '/',
+    //   name: 'neteaseMusicComment',
+    //   component: NeteaseMusicComment,
+    // },
     // {
     //   path: '/about',
     //   name: 'about',

@@ -1,8 +1,10 @@
 <template>
   <div class="home">
+    <div class="md-content">
+      <span>Hello Stranger ~</span>
+      <span>{{rspContent}}</span>
+    </div>
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <span>Hello Stranger ~</span>
-    <span>{{rspContent}}</span>
   </div>
 </template>
 
