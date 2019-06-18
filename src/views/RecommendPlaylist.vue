@@ -28,14 +28,11 @@ export default {
     };
   },
   created() {
-    // return true;
     this.axios({
       method: 'GET',
       url: 'https://music.163.com/api/discovery/recommend/resource',
       withCredentials: true,
     }).then((res) => {
-      // console.log(res);
-      // this.$set(this.recommendPlayLists,...res.data.recommend);
       this.recommendPlayLists = res.data.recommend;
     });
   },
@@ -91,17 +88,4 @@ export default {
 .playlist-img {
   border-radius: 5px;
 }
-// .content-playlist {
-//   width: 20vw;
-//   height: 20vw;
-//   min-width: 75px;
-//   min-height: 75px;
-//   max-width: 125px;
-//   max-height: 125px;
-//   margin: 8px;
-//   background-color: blue;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-// }
 </style>

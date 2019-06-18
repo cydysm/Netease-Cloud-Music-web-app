@@ -1,21 +1,59 @@
 <template>
-  <div class="playlist-detail"></div>
+  <div class="playlist-detail">
+    <div class="md-content">
+      <div class="md-content playlist-info">
+        <img
+          class="playlist-cover-img"
+          :src="picPath">
+        <div class="md-content playlist-info-text">
+          <span class="playlist-name">{{playlistName}}</span>
+          <span class="playlist-creator">{{playlistCreator}}</span>
+          <div class="md-content sub-comment-share">
+            <div class="md-content sub-comment-share-item">
+              <md-icon>mode_comment</md-icon>
+              <span>{{commentCount}}</span>
+            </div>
+            <div class="md-content sub-comment-share-item">
+              <md-icon>share</md-icon>
+              <span>{{shareCount}}</span>
+            </div>
+            <div class="md-content sub-comment-share-item">
+              <md-icon>favorite</md-icon>
+              <span>{{subscribedCount}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
+const imgPlaceholder = require('../assets/img_placeholder.png');
+
 export default {
   name: 'playlistDetail',
   data() {
     return {
       id: null,
+      picPath: imgPlaceholder,
+      playlistName: null,
+      playlistCreator: null,
+      shareCount: null,
+      commentCount: null,
+      subscribedCount: null,
     };
   },
   created() {
     this.id = this.$route.query.playlistId;
     this.fetchPlaylistDetail(this.id)
       .then((res) => {
-        this.$store.dispatch('setPageTitle', res.data.result.name);
-        // this.$set(this.$route.meta, 'title', res.data.result.name);
-        // console.log(this.$route);
+        this.playlistName = res.data.result.name;
+        this.playlistCreator = res.data.result.creator.nickname;
+        this.commentCount = res.data.result.commentCount;
+        this.shareCount = res.data.result.shareCount;
+        this.subscribedCount = res.data.result.subscribedCount;
+        this.$store.dispatch('setPageTitle', this.playlistName);
+        this.picPath = res.data.result.coverImgUrl;
       });
   },
   methods: {
@@ -28,8 +66,65 @@ export default {
         },
       });
     },
+    loadImg(imgSrc) {
+      // console.log(imgSrc);
+      return `this.onload=null;this.src="${imgSrc}";`;
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
+.playlist-detail {
+  background-color: #F2F2F2;
+}
+.playlist-info {
+  height: 60vw;
+  display: flex;
+  flex-direction: row;
+}
+.playlist-cover-img {
+  width: 45vw;
+  height: 45vw;
+  min-width: 75px;
+  min-height: 75px;
+  max-width: 200px;
+  max-height: 200px;
+  margin: 5vw;
+  border-radius: 2vw;
+}
+.playlist-info-text {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5vw;
+  flex: 1;
+  padding-right: 5vw;
+  // .sub-comment-share-item {
+  //   margin: 0 2vw 0 0;
+  // }
+  span {
+    display: block;
+  }
+  .playlist-name {
+    font-size: calc(16px + 1vw);
+    text-align: start;
+  }
+  .playlist-creator {
+    font-size: calc(10px + 1vw);
+    margin-top: calc(10px + 1vw);
+    text-align: start;
+  }
+}
+.sub-comment-share {
+  display: flex;
+  flex-direction: row;
+  margin-top: calc(10px + 1vw);
+  justify-content: space-between;
+  span {
+    font-size: calc(10px + 1vw);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
 </style>
