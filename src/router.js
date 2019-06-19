@@ -14,7 +14,7 @@ export default new Router({
       name: 'recommandPlaylist',
       component: RecommandPlaylist,
       meta: {
-        title: '推荐歌单',
+        title: '热门&私人推荐歌单',
         keepAlive: true,
       },
       // component: NeteaseMusicComment,

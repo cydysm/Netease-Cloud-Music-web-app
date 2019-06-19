@@ -1,29 +1,37 @@
 <template>
   <div class="playlist-detail">
     <div class="md-content">
-      <div class="md-content playlist-info">
-        <img
-          class="playlist-cover-img"
-          :src="picPath">
-        <div class="md-content playlist-info-text">
-          <span class="playlist-name">{{playlistName}}</span>
-          <span class="playlist-creator">{{playlistCreator}}</span>
-          <div class="md-content sub-comment-share">
-            <div class="md-content sub-comment-share-item">
-              <md-icon>mode_comment</md-icon>
-              <span>{{commentCount}}</span>
-            </div>
-            <div class="md-content sub-comment-share-item">
-              <md-icon>share</md-icon>
-              <span>{{shareCount}}</span>
-            </div>
-            <div class="md-content sub-comment-share-item">
-              <md-icon>favorite</md-icon>
-              <span>{{subscribedCount}}</span>
+      <div class="md-content playlist-info" style="flex-direction:column">
+        <div class="md-content" style="display:flex">
+          <img
+            class="playlist-cover-img"
+            :src="picPath">
+          <div class="md-content playlist-info-text">
+            <span class="playlist-name">{{playlistName}}</span>
+            <span class="playlist-creator">{{playlistCreator}}</span>
+            <div class="md-content sub-comment-share">
+              <div class="md-content sub-comment-share-item">
+                <md-icon>mode_comment</md-icon>
+                <span>{{commentCount}}</span>
+              </div>
+              <div class="md-content sub-comment-share-item">
+                <md-icon>share</md-icon>
+                <span>{{shareCount}}</span>
+              </div>
+              <div class="md-content sub-comment-share-item">
+                <md-icon>favorite</md-icon>
+                <span>{{subscribedCount}}</span>
+              </div>
             </div>
           </div>
         </div>
+        <div class="md-content div-playlist-description">
+          <span class="playlist-description">
+            {{description}}
+          </span>
+        </div>
       </div>
+      <md-divider style="margin-bottom:2vw"></md-divider>
       <div class="md-content playlist-content">
         <div v-for="song in songs" :key="song.id">
           <div>{{song.name}}</div>
@@ -36,14 +44,12 @@
 const imgPlaceholder = require('../assets/img_placeholder.png');
 
 const CheckCount = (count) => {
-  console.log(count);
   let rtn;
   if (count <= 1e5 - 1) {
     rtn = count;
   } else if (count > 1e5 - 1 && count <= 1e9 - 1) {
     rtn = `${parseInt(count / 1e4, 10)}万`;
   } else rtn = `${parseInt(count / 1e8, 10)}亿`;
-  console.log(rtn);
   return rtn;
 };
 
@@ -59,6 +65,7 @@ export default {
       songs: null,
       commentCount: null,
       subscribedCount: null,
+      description: null,
     };
   },
   created() {
@@ -66,12 +73,12 @@ export default {
     this.fetchPlaylistDetail(this.id)
       .then((res) => {
         this.songs = res.data.result.tracks;
-        console.log(this.songs);
         this.playlistName = res.data.result.name;
         this.playlistCreator = res.data.result.creator.nickname;
         this.commentCount = CheckCount(res.data.result.commentCount);
         this.shareCount = CheckCount(res.data.result.shareCount);
         this.subscribedCount = CheckCount(res.data.result.subscribedCount);
+        this.description = res.data.result.description;
         this.$store.dispatch('setPageTitle', this.playlistName);
         this.picPath = res.data.result.coverImgUrl;
       });
@@ -92,14 +99,15 @@ export default {
 <style lang="scss" scoped>
 .playlist-detail {
   background-color: #F2F2F2;
+  height: initial;
+  min-height: 100%;
 }
 .playlist-info {
   height: 60vw;
-  min-height: 240px;
+  min-height: 200px;
   max-height: 300px;
   display: flex;
   flex-direction: row;
-  // align-content: space-around;
 }
 .playlist-cover-img {
   width: 45vw;
@@ -108,7 +116,7 @@ export default {
   min-height: 75px;
   max-width: 200px;
   max-height: 200px;
-  margin: 5vw;
+  margin: 5vw 5vw 0 5vw;
   border-radius: 2vw;
 }
 .playlist-info-text {
@@ -148,6 +156,19 @@ export default {
   span {
     font-size: calc(10px + 1vw);
     display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+.div-playlist-description {
+  display: flex;
+  height: 100%;
+  padding-left: 5vw;
+  padding: 0 5vw 0 5vw;
+  justify-content: flex-start;
+  align-items: center;
+  span {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

@@ -7,6 +7,7 @@ import {
   MdToolbar,
   MdIcon,
   MdList,
+  MdDivider,
 } from 'vue-material/dist/components';
 import axios from 'axios';
 import App from './App.vue';
@@ -24,7 +25,8 @@ Vue.use(MdButton)
   .use(MdDrawer)
   .use(MdList)
   .use(MdToolbar)
-  .use(MdIcon);
+  .use(MdIcon)
+  .use(MdDivider);
 const corsAxios = axios.create({
   headers: {
     'Access-Control-Allow-Methods': 'GET,POST',

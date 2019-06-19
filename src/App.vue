@@ -58,7 +58,6 @@ export default {
     return {
       showNavigation: false,
       showSidepanel: false,
-      // pageTitle: 'Page Title',
     };
   },
   created() {
@@ -73,7 +72,6 @@ export default {
     $route: {
       handler(to) {
         this.$store.dispatch('setPageTitle', to.meta.title);
-        // this.pageTitle = to.meta.title;
       },
       deep: true,
     },
@@ -95,14 +93,18 @@ export default {
   color: #2c3e50;
   // height: 100%;
 }
+// scrollbar style
+// #app /deep/ .md-scrollbar::-webkit-scrollbar {
+//   width: 0px;
+// }
 .md-app {
-  // min-height: 350px;
   height: 100vh;
   border: 1px solid rgba(#000, 0.12);
 }
 .md-app-content {
   height: fit-content;
   padding: 0 !important;
+  background-color: #F2F2F2;
 }
 .md-toolbar.md-theme-default.md-primary {
   background-color: rgb(206, 61, 62) !important;
