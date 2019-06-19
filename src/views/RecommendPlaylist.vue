@@ -73,7 +73,6 @@ export default {
   max-height: 200px;
   padding: 8px;
   flex-wrap: wrap;
-  // background-color: blue;
   justify-content: space-between;
 }
 .playlist-name {
@@ -87,5 +86,11 @@ export default {
 }
 .playlist-img {
   border-radius: 5px;
+  width: 25vw;
+  height: 25vw;
+  min-width: 75px;
+  min-height: 75px;
+  max-width: 200px;
+  max-height: 200px;
 }
 </style>

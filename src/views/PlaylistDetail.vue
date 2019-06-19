@@ -24,11 +24,28 @@
           </div>
         </div>
       </div>
+      <div class="md-content playlist-content">
+        <div v-for="song in songs" :key="song.id">
+          <div>{{song.name}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 const imgPlaceholder = require('../assets/img_placeholder.png');
+
+const CheckCount = (count) => {
+  console.log(count);
+  let rtn;
+  if (count <= 1e5 - 1) {
+    rtn = count;
+  } else if (count > 1e5 - 1 && count <= 1e9 - 1) {
+    rtn = `${parseInt(count / 1e4, 10)}万`;
+  } else rtn = `${parseInt(count / 1e8, 10)}亿`;
+  console.log(rtn);
+  return rtn;
+};
 
 export default {
   name: 'playlistDetail',
@@ -39,6 +56,7 @@ export default {
       playlistName: null,
       playlistCreator: null,
       shareCount: null,
+      songs: null,
       commentCount: null,
       subscribedCount: null,
     };
@@ -47,11 +65,13 @@ export default {
     this.id = this.$route.query.playlistId;
     this.fetchPlaylistDetail(this.id)
       .then((res) => {
+        this.songs = res.data.result.tracks;
+        console.log(this.songs);
         this.playlistName = res.data.result.name;
         this.playlistCreator = res.data.result.creator.nickname;
-        this.commentCount = res.data.result.commentCount;
-        this.shareCount = res.data.result.shareCount;
-        this.subscribedCount = res.data.result.subscribedCount;
+        this.commentCount = CheckCount(res.data.result.commentCount);
+        this.shareCount = CheckCount(res.data.result.shareCount);
+        this.subscribedCount = CheckCount(res.data.result.subscribedCount);
         this.$store.dispatch('setPageTitle', this.playlistName);
         this.picPath = res.data.result.coverImgUrl;
       });
@@ -66,10 +86,6 @@ export default {
         },
       });
     },
-    loadImg(imgSrc) {
-      // console.log(imgSrc);
-      return `this.onload=null;this.src="${imgSrc}";`;
-    },
   },
 };
 </script>
@@ -79,8 +95,11 @@ export default {
 }
 .playlist-info {
   height: 60vw;
+  min-height: 240px;
+  max-height: 300px;
   display: flex;
   flex-direction: row;
+  // align-content: space-around;
 }
 .playlist-cover-img {
   width: 45vw;
@@ -96,11 +115,16 @@ export default {
   display: flex;
   flex-direction: column;
   margin-top: 5vw;
+  height: 45vw;
+  min-height: 75px;
+  max-height: 200px;
   flex: 1;
   padding-right: 5vw;
-  // .sub-comment-share-item {
-  //   margin: 0 2vw 0 0;
-  // }
+  justify-content: space-between;
+  .md-icon {
+    height: calc(20px + 1vw);
+    width: calc(20px + 1vw);
+  }
   span {
     display: block;
   }
@@ -118,6 +142,8 @@ export default {
   display: flex;
   flex-direction: row;
   margin-top: calc(10px + 1vw);
+  min-width: 75px;
+  max-width: 200px;
   justify-content: space-between;
   span {
     font-size: calc(10px + 1vw);
