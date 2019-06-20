@@ -13,8 +13,7 @@
         </div>
         <div class="song-artist-albumn">
           <span class="span-artist">{{artist}}</span>
-          <span>&nbsp;-&nbsp;</span>
-          <span class="span-albumn">{{album}}</span>
+          <span class="span-albumn">&nbsp;-&nbsp;{{album}}</span>
         </div>
       </div>
       <div class="div-song-time">
@@ -90,10 +89,14 @@ export default {
 }
 .span-song-name {
   max-width: 45vw;
+  // font-size: calc(8px + 1vw);
+  font-size: calc(16px + 1vw);
+  line-height: initial !important;
 }
 .span-artist, .span-albumn {
   max-width: 20vw;
-  font-size: calc(6px + 1vw);
+  font-size: calc(10px + 1vw);
+  line-height: initial !important;
   color: rgba(0, 0, 0, 0.5);
 }
 </style>
