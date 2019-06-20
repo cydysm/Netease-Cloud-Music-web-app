@@ -33,14 +33,24 @@
       </div>
       <md-divider style="margin-bottom:2vw"></md-divider>
       <div class="md-content playlist-content">
-        <div v-for="song in songs" :key="song.id">
-          <div>{{song.name}}</div>
+        <div v-for="(song, index) in songs" :key="index">
+          <song-cell
+            :index="index + 1"
+            :name="song.name"
+            :artist="song.artists[0].name"
+            :album="song.album.name"
+            :duration="song.duration"/>
+          <md-divider
+            style="margin:0 5vw 0 5vw"
+            v-if="index < songs.length - 1"></md-divider>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import SongCell from '../components/SongCell.vue';
+
 const imgPlaceholder = require('../assets/img_placeholder.png');
 
 const CheckCount = (count) => {
@@ -55,6 +65,9 @@ const CheckCount = (count) => {
 
 export default {
   name: 'playlistDetail',
+  components: {
+    SongCell,
+  },
   data() {
     return {
       id: null,
@@ -62,7 +75,7 @@ export default {
       playlistName: null,
       playlistCreator: null,
       shareCount: null,
-      songs: null,
+      songs: [],
       commentCount: null,
       subscribedCount: null,
       description: null,
@@ -72,15 +85,16 @@ export default {
     this.id = this.$route.query.playlistId;
     this.fetchPlaylistDetail(this.id)
       .then((res) => {
-        this.songs = res.data.result.tracks;
-        this.playlistName = res.data.result.name;
-        this.playlistCreator = res.data.result.creator.nickname;
-        this.commentCount = CheckCount(res.data.result.commentCount);
-        this.shareCount = CheckCount(res.data.result.shareCount);
-        this.subscribedCount = CheckCount(res.data.result.subscribedCount);
-        this.description = res.data.result.description;
+        const result = JSON.parse(JSON.stringify(res.data.result));
+        this.songs = result.tracks;
+        this.playlistName = result.name;
+        this.playlistCreator = result.creator.nickname;
+        this.commentCount = CheckCount(result.commentCount);
+        this.shareCount = CheckCount(result.shareCount);
+        this.subscribedCount = CheckCount(result.subscribedCount);
+        this.description = result.description;
         this.$store.dispatch('setPageTitle', this.playlistName);
-        this.picPath = res.data.result.coverImgUrl;
+        this.picPath = result.coverImgUrl;
       });
   },
   methods: {
@@ -99,7 +113,7 @@ export default {
 <style lang="scss" scoped>
 .playlist-detail {
   background-color: #F2F2F2;
-  height: initial;
+  height: fit-content;
   min-height: 100%;
 }
 .playlist-info {
