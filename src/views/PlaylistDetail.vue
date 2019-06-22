@@ -37,6 +37,7 @@
           <song-cell
             :index="index + 1"
             :name="song.name"
+            :playType="song.fee"
             :artist="song.artists[0].name"
             :album="song.album.name"
             :duration="song.duration"/>
@@ -81,6 +82,12 @@ export default {
       description: null,
     };
   },
+  // computed: {
+  //   playType() {
+  //     return (e) => {
+  //     };
+  //   },
+  // },
   created() {
     this.id = this.$route.query.playlistId;
     this.fetchPlaylistDetail(this.id)

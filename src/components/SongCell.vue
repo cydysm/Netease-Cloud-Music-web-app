@@ -9,7 +9,15 @@
       </div>
       <div class="div-song-text">
         <div class="song-name">
-          <span class="span-song-name">{{name}}</span>
+          <span class="span-song-name">
+            <span
+              style="display:inline;
+              text-align:start;
+              color:red;
+              font-size:2vw;">
+              {{playType === 0 ? '': (playType === 4 ? '&yen;&nbsp;': 'ⓥ&nbsp;')}}
+            </span>{{name}}
+          </span>
         </div>
         <div class="song-artist-albumn">
           <span class="span-artist">{{artist}}</span>
@@ -33,6 +41,7 @@ export default {
     artist: String,
     album: String,
     duration: Number,
+    playType: Number,
   },
   computed: {
     // covert millisecond to 'hh:mm:ss'
@@ -59,7 +68,7 @@ export default {
   // max-width: 90%;
   span {
     // max-width: 20vw;
-    display: block;
+    // display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -68,10 +77,6 @@ export default {
 .div-song-time {
   span {
     max-width: 30vw;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 }
 .div-song-index, .div-song-time{
@@ -89,7 +94,6 @@ export default {
 }
 .span-song-name {
   max-width: 45vw;
-  // font-size: calc(8px + 1vw);
   font-size: calc(16px + 1vw);
   line-height: initial !important;
 }
