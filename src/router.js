@@ -2,8 +2,12 @@ import Vue from 'vue';
 import Router from 'vue-router';
 // import NeteaseMusicComment from './views/NeteaseMusicComment.vue';
 // import Home from './views/Home.vue';
-import RecommandPlaylist from './views/RecommendPlaylist.vue';
-import PlaylistDetail from './views/PlaylistDetail.vue';
+const RecommandPlaylist = () => import('./views/RecommendPlaylist.vue');
+const PlaylistDetail = () => import('./views/PlaylistDetail.vue');
+const SongPlayer = () => import('./views/SongPlayer.vue');
+// import RecommandPlaylist from './views/RecommendPlaylist.vue';
+// import PlaylistDetail from './views/PlaylistDetail.vue';
+// import SongPlayer from './views/SongPlayer.vue';
 
 Vue.use(Router);
 
@@ -25,6 +29,14 @@ export default new Router({
       component: PlaylistDetail,
       meta: {
         title: '歌单详情',
+      },
+    },
+    {
+      path: '/song_player',
+      name: 'songPlayer',
+      component: SongPlayer,
+      meta: {
+        title: '歌曲',
       },
     },
     // {

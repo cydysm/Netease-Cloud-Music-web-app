@@ -40,7 +40,8 @@
             :playType="song.fee"
             :artist="song.artists[0].name"
             :album="song.album.name"
-            :duration="song.duration"/>
+            :duration="song.duration"
+            @click.native="playMusic(song.id, song.fee)"/>
           <md-divider
             style="margin:0 5vw 0 5vw"
             v-if="index < songs.length - 1"></md-divider>
@@ -82,12 +83,6 @@ export default {
       description: null,
     };
   },
-  // computed: {
-  //   playType() {
-  //     return (e) => {
-  //     };
-  //   },
-  // },
   created() {
     this.id = this.$route.query.playlistId;
     this.fetchPlaylistDetail(this.id)
@@ -95,12 +90,12 @@ export default {
         const result = JSON.parse(JSON.stringify(res.data.result));
         this.songs = result.tracks;
         this.playlistName = result.name;
+        this.$store.dispatch('setPageTitle', this.playlistName);
         this.playlistCreator = result.creator.nickname;
         this.commentCount = CheckCount(result.commentCount);
         this.shareCount = CheckCount(result.shareCount);
         this.subscribedCount = CheckCount(result.subscribedCount);
         this.description = result.description;
-        this.$store.dispatch('setPageTitle', this.playlistName);
         this.picPath = result.coverImgUrl;
       });
   },
@@ -113,6 +108,10 @@ export default {
           id,
         },
       });
+    },
+    playMusic(id, fee) {
+      // console.log(id, fee);
+      this.$router.push({ name: 'songPlayer', query: { id, fee_type: fee } });
     },
   },
 };
