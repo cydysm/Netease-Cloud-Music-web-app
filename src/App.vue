@@ -9,7 +9,7 @@
           <span class="md-title" style="md-title">
             Cloud Music&nbsp;
             <span class="page-title">
-              {{pageTitle}}
+              {{ pageTitle }}
             </span>
           </span>
         </md-app-toolbar>
@@ -43,9 +43,9 @@
         </md-app-drawer>
         <md-app-content>
           <keep-alive>
-            <router-view v-if="$route.meta.keepAlive"/>
+            <router-view v-if="$route.meta.keepAlive" />
           </keep-alive>
-          <router-view v-if="!$route.meta.keepAlive"/>
+          <router-view v-if="!$route.meta.keepAlive" />
         </md-app-content>
       </md-app>
     </div>
@@ -53,7 +53,7 @@
 </template>
 <script>
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
       showNavigation: false,
@@ -61,7 +61,7 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch('setPageTitle', this.$route.meta.title);
+    this.$store.dispatch("setPageTitle", this.$route.meta.title);
   },
   computed: {
     pageTitle() {
@@ -71,7 +71,7 @@ export default {
   watch: {
     $route: {
       handler(to) {
-        this.$store.dispatch('setPageTitle', to.meta.title);
+        this.$store.dispatch("setPageTitle", to.meta.title);
       },
       deep: true,
     },
@@ -104,7 +104,7 @@ export default {
 .md-app-content {
   height: fit-content;
   padding: 0 !important;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 }
 .md-toolbar.md-theme-default.md-primary {
   background-color: rgb(206, 61, 62) !important;

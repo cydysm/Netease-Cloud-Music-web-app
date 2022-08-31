@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  name: 'songPlayer',
+  name: "songPlayer",
   data() {
     return {
       songId: null,
@@ -20,19 +20,17 @@ export default {
   },
   created() {
     this.songId = this.$route.query.id;
-    const feeType = this.$route.query.fee_type;
-    this.fetchSongDetail(this.songId)
-      .then((res) => {
-        const result = res.data.songs[0];
-        this.songName = result.name;
-        this.$store.dispatch('setPageTitle', this.songName);
-      });
+    this.fetchSongDetail(this.songId).then((res) => {
+      const result = res.data.songs[0];
+      this.songName = result.name;
+      this.$store.dispatch("setPageTitle", this.songName);
+    });
   },
   methods: {
     fetchSongDetail(id) {
       return this.axios({
-        method: 'GET',
-        url: 'http://music.163.com/api/song/detail',
+        method: "GET",
+        url: "http://music.163.com/api/song/detail",
         params: {
           ids: `[${id}]`,
         },
@@ -41,6 +39,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
